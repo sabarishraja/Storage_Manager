@@ -142,7 +142,11 @@ extern RC readLastBlock (SM_FileHandle *fHandle, SM_PageHandle memPage){
 
 extern RC readPreviousBlock (SM_FileHandle *fHandle, SM_PageHandle memPage){
     int previousPage = fHandle->curPagePos - 1;
-    
+    //Check if the page number is not below 0
+    if(previousPage <= 0){
+        return RC_READ_NON_EXISTING_PAGE;
+    }
+    return readBlock(previousPage, fHandle, memPage);
 }
 
 
